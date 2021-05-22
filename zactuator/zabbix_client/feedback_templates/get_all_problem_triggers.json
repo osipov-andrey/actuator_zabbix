@@ -1,0 +1,27 @@
+{
+    "jsonrpc": "2.0",
+    "method": "trigger.get",
+    "params": {
+        "output": [
+            "lastchange",
+            "priority",
+            "description",
+            "triggerid"
+        ],
+        "filter": {
+            "value": 1,
+            "priority": null
+        },
+        "sortfield": ["priority", "lastchange"],
+        "sortorder": "DESC",
+        "host": null,
+        "expandComment": true,
+        "expandDescription": true,
+        "active": true,
+        "selectHosts": {
+            "output": "host"
+        }
+    },
+    "auth": null,
+    "id": 1
+}

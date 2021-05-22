@@ -1,0 +1,17 @@
+{
+    "jsonrpc": "2.0",
+    "method": "graph.get",
+    "params": {
+        "output": [
+          "name"
+        ],
+        "graphids": null,
+        "sortfield": "name",
+        "selectHosts": {
+            "output": "host"
+        },
+        "expandName": true
+    },
+    "auth": null,
+    "id": 1
+}

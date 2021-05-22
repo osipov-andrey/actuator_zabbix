@@ -1,0 +1,3 @@
+/zactuator/config.yaml
+/zactuator/zabbix_client/feedback_templates/host_info.json
+/zactuator/zabbix_client/feedback_templates/hot_keys.json

@@ -1,0 +1,18 @@
+{
+    "jsonrpc": "2.0",
+    "method": "item.get",
+    "params": {
+        "itemids": null,
+        "output": [
+            "hostid",
+            "name",
+            "lastvalue",
+            "description"
+        ],
+        "selectHosts": {
+            "output": "host"
+        }
+    },
+    "auth": null,
+    "id": 1
+}

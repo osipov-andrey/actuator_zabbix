@@ -1,0 +1,16 @@
+{
+  "items": {
+    "Test item 1": 30418,
+    "Test item 2": 30419,
+    "Test item 3": 30415
+  },
+  "item_graphs": {
+    "Test item 1": 30418,
+    "Test item 2": 30419,
+    "Test item 3": 30415
+  },
+  "graphs": {
+      "Serials on line": 1078,
+      "Serials on SS": 916
+  }
+}

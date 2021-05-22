@@ -1,0 +1,43 @@
+{
+  "L1": {
+    "host": "l1",
+    "main_image": {
+      "source": "item",
+      "id": 30414
+    },
+    "graphs": {
+      "Serials on line": 1078
+    },
+    "item_graphs": {},
+    "items": [30418, 30419, 30415]
+  },
+
+  "L2": {
+    "host": "l2",
+    "main_image": {
+    },
+    "graphs": {},
+    "item_graphs": {
+      "ACS connection": 30414,
+      "ACC connection": 30415
+    },
+    "items": []
+  },
+
+  "L3": {
+    "host": "l3",
+    "main_image": {
+      "source": "graph",
+      "id": 1078
+    },
+    "graphs": {
+      "Serials on line": 1078,
+      "Serials on SS": 916
+    },
+    "item_graphs": {
+      "ACS connection": 30414,
+      "ACC connection": 30415
+    },
+    "items": [30414, 30415]
+  }
+}

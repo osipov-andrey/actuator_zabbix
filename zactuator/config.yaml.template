@@ -1,0 +1,46 @@
+# Имя клиента в телеграм-боте
+BOT_CLIENT_NAME: "hen"
+VERBOSE_BOT_CLIENT_NAME: "HEN"
+DEBUG: false
+SAVED_IMAGES: false  # сохранять скачиваемые графики
+PATH_TO_IMAGES: "pics"
+
+# Параметры Zabbix
+ZABBIX_HOST: <ZABBIX_HOST HERE>
+ZABBIX_USER:  <ZABBIX_USER HERE>
+ZABBIX_PASSW:  <ZABBIX_PASSW HERE>
+
+# Источник вызовов команд
+SSE_URL: "http://patefon.vertex.spb.ru/sse/{}/events/"  # на HEN - https!!!
+SSE_URL_DEBUG: <SSE_URL_DEBUG HERE>
+# {} - сюда подставится BOT_CLIENT_NAME
+
+# Куда отправлять сообщения
+RABBIT:  # Используется в режиме DEBUG = true
+    host: <HOST_HERE>
+    port: <PORT_HERE>
+    login: <LOGIN_HERE>
+    pwd: <PASSWORD_HERE>
+    queue: telegram
+
+logging:
+    version: 1
+
+    disable_existing_loggers: false
+
+    formatters:
+        main:
+            format: "%(levelname)-8s [%(asctime)s] %(name)32s::%(funcName)-18s  :line:%(lineno)-8s - %(message)s"
+            datefmt: '%Y-%m-%d %H:%M:%S'
+
+    handlers:
+        console:
+            class: logging.StreamHandler
+            formatter: main
+
+    loggers: []
+
+    root:
+        level: DEBUG
+        handlers:
+            - console

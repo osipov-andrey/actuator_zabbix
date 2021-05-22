@@ -1,0 +1,15 @@
+{
+    "jsonrpc": "2.0",
+    "method": "history.get",
+    "params": {
+        "output": "extend",
+        "history": 3,
+        "itemids": null,
+        "sortfield": "clock",
+        "sortorder": "DESC",
+        "time_from": null,
+        "limit": null
+    },
+    "auth": null,
+    "id": 1
+}

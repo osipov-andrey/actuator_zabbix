@@ -1,0 +1,8 @@
+{
+    "jsonrpc": "2.0",
+    "method": "user.checkAuthentication",
+    "params": {
+        "sessionid": null
+    },
+    "id": 1
+}
