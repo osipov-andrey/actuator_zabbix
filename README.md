@@ -22,3 +22,8 @@ Next:
  >  _# fill config_
  > 
  > python -m zactuator
+
+
+## How it works:
+
+![Alt-текст](https://github.com/osipov-andrey/actuator_zabbix/blob/master/docs/zactuator_eng.gif?raw=true "Control bot + Zabbix")
