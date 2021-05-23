@@ -38,7 +38,7 @@ class ZabbixCallableCommand(BaseCommand, ABC):
     PATH_TO_FILE = PATH_TO_TEMPLATES
 
     async def execute(self):
-        """ Переопределяю метод для обработки пользовательских исключений """
+        """ Override method to handle custom zactuator exceptions """
         try:
             await super().execute()
         except exceptions.AuthorisedException:
@@ -53,7 +53,7 @@ class ZabbixCallableCommandWithArgs(ZabbixCallableCommand, HumanCallableCommandW
 
     @ZabbixApiClient.authorised_required
     async def get_data_from_zabbix_api(self, template: dict) -> dict:
-        """ Обращение к Zabbix-API"""
+        """ Request to Zabbix-API"""
         template['auth'] = self.zabbix_client.auth
         request = await self.zabbix_client.post_to_zabbix_api(json=template)
         return request
@@ -171,7 +171,7 @@ class WebInterfaceCommandMixin:
 
 @dispatcher.register_callable_command
 class GetHostInfo(ZabbixCallableCommandWithArgs, WebInterfaceCommandMixin):
-    """ Получить справку по линии """
+    """ Get info about Host """
     CMD = "hostinfo"
     JSON_TMPL_FILE = 'host_info.json'
     HOSTS = {
@@ -179,7 +179,7 @@ class GetHostInfo(ZabbixCallableCommandWithArgs, WebInterfaceCommandMixin):
         in load_json_template(JSON_TMPL_FILE, ZabbixCallableCommand.PATH_TO_FILE).items()
     }
     ARGS = (
-        arguments.String("host_name", "Имя хоста", example="Line1", options=list(HOSTS.keys())),
+        arguments.String("host_name", "Zabbix host name", example="Line1", options=list(HOSTS.keys())),
     )
 
     def __init__(self, *args, **kwargs):
@@ -275,17 +275,17 @@ class GetHostInfo(ZabbixCallableCommandWithArgs, WebInterfaceCommandMixin):
 @dispatcher.register_callable_command
 class GetItemHistory(ZabbixCallableCommandWithArgs):
     """
-    Получить историю значений по id элемента.
+    Get the history of item values.
     """
     CMD = 'history'
     JSON_TMPL_FILE = 'get_item_history.json'
 
     ARGS = (
-        arguments.Integer("item_id", "ID элемента даных", example="целое число"),
-        arguments.Integer("period", "Период истории до настоящего момента",
-                          example="Целое число", default=1, maximum=100),
-        arguments.Integer("limit", "Лимит на количество возвращаемых записей",
-                          example="целое число", default=100)
+        arguments.Integer("item_id", "Item ID", example="integer"),
+        arguments.Integer("period", "The period of history to the present",
+                          example="integer", default=1, maximum=100),
+        arguments.Integer("limit", "Limit on the number of records returned",
+                          example="integer", default=100)
     )
 
     async def _execute(self):
@@ -328,16 +328,16 @@ class GetItemHistory(ZabbixCallableCommandWithArgs):
 @dispatcher.register_callable_command
 class GetGraph(ZabbixCallableCommandWithArgs, WebInterfaceCommandMixin):
     """
-    Получить график по id элемента.
+    Get a graph of the values of an item.
     """
     CMD = 'graph'
 
     ARGS = (
-        arguments.String("source", "Источник данных",
+        arguments.String("source", "Data source",
                          example="item, graph", options=["item", "graph"], allow_options=True),
-        arguments.Integer("item_id", "ID элемента данных", example="целое число"),
-        arguments.Integer("period", "Интересующий период в часах",
-                          example="целое число", default=1, options=[1, 2, 4, 8, 12, 24],
+        arguments.Integer("item_id", "Item ID", example="Integer"),
+        arguments.Integer("period", "Period of interest in hours",
+                          example="integer", default=1, options=[1, 2, 4, 8, 12, 24],
                           maximum=100)
     )
 
@@ -379,12 +379,12 @@ class GetGraph(ZabbixCallableCommandWithArgs, WebInterfaceCommandMixin):
 
 @dispatcher.register_callable_command
 class GetItems(ZabbixCallableCommandWithArgs):
-    """ Получить информацию об элементах\n """
+    """ Get item value. """
     JSON_TMPL_FILE = 'get_items.json'
     CMD = 'getitems'
 
     ARGS = (
-        arguments.ListArg("item_ids", "ID элемента данных",
+        arguments.ListArg("item_ids", "Item ID",
                           example="30414 30415 ..."),
     )
 
@@ -402,18 +402,18 @@ class GetItems(ZabbixCallableCommandWithArgs):
 
 @dispatcher.register_callable_command
 class GetProblemTriggers(ZabbixCallableCommandWithArgs):
-    """ Получить информацию о триггерах в состоянии проблема """
+    """ Get information about triggers in a problem state """
     JSON_TMPL_FILE = 'get_all_problem_triggers.json'
     CMD = 'badtriggers'
     LINES = load_template('host_info.json')
     MAX_PRIORITY = 5
     ARGS = (
-        arguments.String("direction", "Условие фильтрации", default="ge",
+        arguments.String("direction", "Filter condition", default="ge",
                          options=['≤', '=', '≥'], allowed=['≤', '=', '≥', 'le', 'eq', 'ge']),
-        arguments.Integer("priority", "Нижняя граница приоритета триггеров",
+        arguments.Integer("priority", "Trigger Priority Lower Bound",
                           example="0 - 5", default="1",
                           options=[i for i in range(MAX_PRIORITY + 1)], allow_options=True),
-        arguments.String("hostname", "Фильтрация триггеров по имени хоста",
+        arguments.String("hostname", "Filtering triggers by hostname",
                          example="Line1, Line4, All..", default='All',
                          options=[line for line in LINES] + ['All'])
     )
@@ -506,7 +506,7 @@ class GetProblemTriggers(ZabbixCallableCommandWithArgs):
 
 @dispatcher.register_callable_command
 class HotKeysCommand(ZabbixCallableCommand):
-    """ Горячие кнопки """
+    """ Hot keys """
     CMD = 'hotkeys'
     JSON_TMPL_FILE = 'hot_keys.json'
     EMOJI = ">>High<<"
@@ -520,8 +520,8 @@ class HotKeysCommand(ZabbixCallableCommand):
             self.add_inline_button(GetGraph, f">>graph1<< {graph_name}", "graph", graph_id)
 
         await self.send_message(
-            subject=f"{self.EMOJI} Горячие кнопки",
-            text=f"Настраиваются в файле {self.JSON_TMPL_FILE}",
+            subject=f"{self.EMOJI} Hot keys",
+            text=f"Settings in {self.JSON_TMPL_FILE} file",
             reply_markup=self.inline_buttons
         )
 
@@ -534,7 +534,7 @@ class NoConnectToZabbixCommand(ZabbixServiceCommand):
     async def _execute(self):
 
         await self.send_message(
-            subject=f"{self.EMOJI} No connection to HEN!",
+            subject=f"{self.EMOJI} No connection to Zabbix!",
             text="Try again!"
         )
 
@@ -548,6 +548,6 @@ class AuthFailedCommand(ZabbixServiceCommand):
     async def _execute(self):
 
         await self.send_message(
-            subject=f"{self.EMOJI} auth on HEN failed!",
+            subject=f"{self.EMOJI} auth on Zabbix failed!",
             text="Check auth data on HEN"
         )
