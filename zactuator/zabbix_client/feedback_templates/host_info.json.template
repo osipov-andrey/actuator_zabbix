@@ -2,8 +2,8 @@
   "L1": {
     "host": "l1",
     "main_image": {
-      "source": "item",
-      "id": 30414
+      "source": "graph",
+      "id": 1078
     },
     "graphs": {
       "Serials on line": 1078

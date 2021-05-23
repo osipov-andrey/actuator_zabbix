@@ -1,5 +1,5 @@
 from cba.consumers import SSEConsumer
-from cba.publishers import RabbitPublisher, HTTPPublisher
+from cba.publishers import RabbitPublisher
 from cba.actuator import Actuator
 
 from .config import config
@@ -8,13 +8,8 @@ from .commands import *
 
 NAME = config.BOT_CLIENT_NAME
 
-if config.DEBUG:
-    SSE_URL = config.SSE_URL_DEBUG.format(NAME)
-    publisher = RabbitPublisher(**config.RABBIT)
-
-else:
-    SSE_URL = config.SSE_URL.format(NAME)
-    publisher = HTTPPublisher(**config.PATEFON)
+SSE_URL = config.SSE_URL.format(NAME)
+publisher = RabbitPublisher(**config.RABBIT)
 
 
 def main():

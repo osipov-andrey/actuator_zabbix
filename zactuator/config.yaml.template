@@ -1,22 +1,20 @@
-# Имя клиента в телеграм-боте
+# Name of the actuator in Control Bot
 BOT_CLIENT_NAME: "hen"
 VERBOSE_BOT_CLIENT_NAME: "HEN"
-DEBUG: false
-SAVED_IMAGES: false  # сохранять скачиваемые графики
+SAVED_IMAGES: false  # save sending images
 PATH_TO_IMAGES: "pics"
 
-# Параметры Zabbix
+# Zabbix credentials
 ZABBIX_HOST: <ZABBIX_HOST HERE>
 ZABBIX_USER:  <ZABBIX_USER HERE>
 ZABBIX_PASSW:  <ZABBIX_PASSW HERE>
 
-# Источник вызовов команд
-SSE_URL: "http://patefon.vertex.spb.ru/sse/{}/events/"  # на HEN - https!!!
-SSE_URL_DEBUG: <SSE_URL_DEBUG HERE>
-# {} - сюда подставится BOT_CLIENT_NAME
+# Connect to Control Bot SSE
+SSE_URL: "http://<BOT_SSE_HOST_HERE>:<BOT_SSE_PORT_HERE>/sse/{}/events/"
+# {} - where BOT_CLIENT_NAME will be substituted
 
-# Куда отправлять сообщения
-RABBIT:  # Используется в режиме DEBUG = true
+# Connect to RabbitMQ
+RABBIT:
     host: <HOST_HERE>
     port: <PORT_HERE>
     login: <LOGIN_HERE>
@@ -37,6 +35,11 @@ logging:
         console:
             class: logging.StreamHandler
             formatter: main
+        file:
+            class: logging.FileHandler
+            filename: log\zabbit.log
+            formatter: main
+            encoding: utf-8
 
     loggers: []
 
@@ -44,3 +47,4 @@ logging:
         level: DEBUG
         handlers:
             - console
+            - file
